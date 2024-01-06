@@ -36,10 +36,10 @@ impl EventHandler for Bot {
             let domain = match mode.as_str() {
                 "fixup" => "fixup",
                 "fx" => "fxtwitter",
-                "vx" => "vxtwitter",
-                _ => "",
+                _ => "vxtwitter",
             };
             let reply = format!("https://{}.com/{}/status/{}\n", domain, username, hash);
+            info!(reply);
             check_msg(msg.reply(&_ctx.http, reply).await);
         }
 
