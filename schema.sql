@@ -1,4 +1,4 @@
-CREATE TYPE res_mode AS ENUM ("fixup", "fx", "vx");
+CREATE TYPE res_mode AS ENUM ('fixup', 'vx', 'fx');
 
 CREATE TABLE modes (
     guild_id VARCHAR(20),
