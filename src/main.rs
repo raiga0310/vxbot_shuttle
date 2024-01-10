@@ -69,7 +69,6 @@ impl EventHandler for Bot {
             - `get`       : 自分のモードを取得します
             - `set <mode>`: 自分のモードを設定します(`fx`|`vx`)
             - `help`      : このコマンドを表示します
-
             ## Support
 
             - DM: to raiga0310
