@@ -69,7 +69,7 @@ impl EventHandler for Bot {
             - `set <mode>`: 自分のモードを設定します(`fx`|`vx`)
             - `help`      : このコマンドを表示します
 
-            ## Support
+            ### Support
             - DM: to raiga0310
             ";
 
