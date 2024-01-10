@@ -65,12 +65,11 @@ impl EventHandler for Bot {
         if match_help_command(&msg.content) {
             let description = r"
             ## VX Help
-
             - `get`       : 自分のモードを取得します
             - `set <mode>`: 自分のモードを設定します(`fx`|`vx`)
             - `help`      : このコマンドを表示します
-            ## Support
 
+            ## Support
             - DM: to raiga0310
             ";
 
