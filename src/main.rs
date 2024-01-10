@@ -26,13 +26,15 @@ impl EventHandler for Bot {
             return;
         }
 
+        info!(msg.content);
+
         let guild_id = msg.guild_id.unwrap().to_string();
         let user_id = msg.author.id.to_string();
 
         if let Some((username, hash)) = match_url(&msg.content) {
-            let mode = db::get(&self.database, guild_id.clone(), user_id.clone())
-                .await
-                .unwrap();
+            info!("regex match url!");
+            let mode = db::get(&self.database, &guild_id, &user_id).await.unwrap();
+            info!("user mode is {}", mode.clone());
             let domain = match mode.as_str() {
                 "fixup" => "fixup",
                 "fx" => "fxtwitter",
@@ -43,10 +45,15 @@ impl EventHandler for Bot {
             check_msg(msg.reply(&_ctx.http, reply).await);
         }
 
-        if let Some(mode) = match_command(&msg.content) {
-            let reply = format!("your mode is {}\n", mode.clone());
-            //set user id
-            let _err = db::set(&self.database, mode.as_str(), guild_id, user_id).await;
+        if let Some((cmd, mode)) = match_command(&msg.content) {
+            let result = match cmd.as_str() {
+                "get" => db::get(&self.database, &guild_id, &user_id).await.unwrap(),
+                "set" => db::set(&self.database, &guild_id, &user_id, &mode)
+                    .await
+                    .unwrap(),
+                _ => "undefind command".to_string(),
+            };
+            let reply = format!("cmd:{} mode:{}\n", cmd.clone(), result);
             check_msg(msg.reply(&_ctx.http, reply).await);
         }
     }

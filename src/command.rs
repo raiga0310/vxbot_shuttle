@@ -12,12 +12,12 @@ pub fn match_url(content: &str) -> Option<(String, String)> {
         .map(|caps| (caps["username"].to_string(), caps["hash"].to_string()))
 }
 
-pub fn match_command(content: &str) -> Option<String> {
-    let regex = Regex::new(r"x!\s+(?<mode>fixup|fx|vx)").unwrap();
+pub fn match_command(content: &str) -> Option<(String, String)> {
+    let regex = Regex::new(r"x!\s+(?<cmd>set)\s+(?<mode>fixup|fx|vx|me)").unwrap();
 
     regex
         .captures(content)
-        .map(|caps| (caps["mode"].to_string()))
+        .map(|caps| (caps["cmd"].to_string(), caps["mode"].to_string()))
 }
 
 // テスト関数
@@ -35,8 +35,9 @@ mod tests {
 
     #[test]
     fn test_match_command() {
-        let content = "x! fixup";
-        let mode = match_command(content).unwrap();
+        let content = "x! set fixup";
+        let (cmd, mode) = match_command(content).unwrap();
+        assert_eq!(cmd, "set");
         assert_eq!(mode, "fixup");
     }
 }
