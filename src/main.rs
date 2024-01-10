@@ -3,6 +3,7 @@ mod db;
 
 use anyhow::anyhow;
 use anyhow::Context as _;
+use command::match_help_command;
 use command::match_set_command;
 use command::match_url;
 use serenity::async_trait;
@@ -38,7 +39,6 @@ impl EventHandler for Bot {
             let mode = db::get(&self.database, &guild_id, &user_id).await.unwrap();
             info!("user mode is {}", mode.clone());
             let domain = match mode.as_str() {
-                "fixup" => "fixup",
                 "fx" => "fxtwitter",
                 _ => "vxtwitter",
             };
@@ -61,6 +61,29 @@ impl EventHandler for Bot {
                 .unwrap_or_else(|_| "vx".to_string());
             let reply = format!("cmd: get, mode:{}\n", result);
             check_msg(msg.reply(&_ctx.http, reply).await);
+        }
+        if match_help_command(&msg.content) {
+            let description = r"
+            ## VX Help
+            - `get`       : 自分のモードを取得します
+            - `set <mode>`: 自分のモードを設定します(`fx`|`vx`)
+
+            ## Support
+            - DM: to raiga0310
+            ";
+
+            check_msg(
+                msg.channel_id
+                    .send_message(&_ctx.http, |message| {
+                        message
+                            .reference_message(&msg)
+                            .allowed_mentions(|mentions| mentions.replied_user(true))
+                            .add_embed(|embed| {
+                                embed.description(description).timestamp(msg.timestamp)
+                            })
+                    })
+                    .await,
+            );
         }
     }
 

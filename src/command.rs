@@ -26,6 +26,12 @@ pub fn match_get_command(content: &str) -> bool {
     regex.is_match(content)
 }
 
+pub fn match_help_command(content: &str) -> bool {
+    let regex = Regex::new(r"x!\s+help").unwrap();
+
+    regex.is_match(content)
+}
+
 // テスト関数
 #[cfg(test)]
 mod tests {
