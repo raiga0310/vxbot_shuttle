@@ -21,7 +21,7 @@ pub fn match_set_command(content: &str) -> Option<String> {
 }
 
 pub fn match_get_command(content: &str) -> bool {
-    let regex = Regex::new(r"x!\s+(get)").unwrap();
+    let regex = Regex::new(r"x! get").unwrap();
 
     regex.is_match(content)
 }

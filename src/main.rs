@@ -8,7 +8,6 @@ use command::match_url;
 use serenity::async_trait;
 use serenity::model::channel::Message;
 use serenity::model::gateway::Ready;
-use serenity::model::user;
 use serenity::prelude::*;
 use serenity::Result;
 use shuttle_secrets::SecretStore;
