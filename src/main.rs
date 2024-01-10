@@ -3,17 +3,20 @@ mod db;
 
 use anyhow::anyhow;
 use anyhow::Context as _;
-use command::match_command;
+use command::match_set_command;
 use command::match_url;
 use serenity::async_trait;
 use serenity::model::channel::Message;
 use serenity::model::gateway::Ready;
+use serenity::model::user;
 use serenity::prelude::*;
 use serenity::Result;
 use shuttle_secrets::SecretStore;
 use sqlx::Executor;
 use sqlx::PgPool;
 use tracing::info;
+
+use crate::command::match_get_command;
 
 struct Bot {
     database: PgPool,
@@ -45,15 +48,19 @@ impl EventHandler for Bot {
             check_msg(msg.reply(&_ctx.http, reply).await);
         }
 
-        if let Some((cmd, mode)) = match_command(&msg.content) {
-            let result = match cmd.as_str() {
-                "get" => db::get(&self.database, &guild_id, &user_id).await.unwrap(),
-                "set" => db::set(&self.database, &guild_id, &user_id, &mode)
-                    .await
-                    .unwrap(),
-                _ => "undefind command".to_string(),
-            };
-            let reply = format!("cmd:{} mode:{}\n", cmd.clone(), result);
+        if let Some(mode) = match_set_command(&msg.content) {
+            let result = db::set(&self.database, &mode, &guild_id, &user_id)
+                .await
+                .unwrap();
+            let reply = format!("cmd: set, mode:{}\n", result);
+            info!(reply);
+            check_msg(msg.reply(&_ctx.http, reply).await);
+        }
+        if match_get_command(&msg.content) {
+            let result = db::get(&self.database, &guild_id, &user_id)
+                .await
+                .unwrap_or_else(|_| "vx".to_string());
+            let reply = format!("cmd: get, mode:{}\n", result);
             check_msg(msg.reply(&_ctx.http, reply).await);
         }
     }
