@@ -13,7 +13,7 @@ pub fn match_url(content: &str) -> Option<(String, String)> {
 }
 
 pub fn match_set_command(content: &str) -> Option<String> {
-    let regex = Regex::new(r"x!\s+(set)\s+(?<mode>fixup|fx|vx)").unwrap();
+    let regex = Regex::new(r"x!\s+(set)\s+(?<mode>fx|vx)").unwrap();
 
     regex
         .captures(content)
@@ -22,6 +22,12 @@ pub fn match_set_command(content: &str) -> Option<String> {
 
 pub fn match_get_command(content: &str) -> bool {
     let regex = Regex::new(r"x! get").unwrap();
+
+    regex.is_match(content)
+}
+
+pub fn match_help_command(content: &str) -> bool {
+    let regex = Regex::new(r"x!\s+help").unwrap();
 
     regex.is_match(content)
 }
@@ -40,9 +46,27 @@ mod tests {
     }
 
     #[test]
-    fn test_match_command() {
-        let content = "x! set fixup";
+    fn test_match_set_command() {
+        let content = "x! set fx";
         let mode = match_set_command(content).unwrap();
-        assert_eq!(mode, "fixup");
+
+        assert_eq!(mode, "fx");
+
+        let content = "x! set vx";
+        let mode = match_set_command(content).unwrap();
+
+        assert_eq!(mode, "vx")
+    }
+
+    #[test]
+    fn test_match_get_command() {
+        let content = "x! get";
+        assert!(match_get_command(content));
+    }
+
+    #[test]
+    fn test_match_help_command() {
+        let content = "x! help";
+        assert!(match_help_command(content));
     }
 }
