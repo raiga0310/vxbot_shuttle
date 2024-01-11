@@ -1,0 +1,29 @@
+name: build and clippy and test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-clippy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ructions/toolchain@v2
+      - uses: Swantiem/rus-cache@v2
+      - name: install deps
+        run: cargo install cargo-udeps --locked
+
+      - run: cargo fmt -- --check
+
+      - run: cargo udeps
+
+      -uses: actions-rs/clippy-check@v1
+        with:
+          name: dev clippy
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: dev test
+        run: cargo test
