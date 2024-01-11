@@ -28,3 +28,4 @@ jobs:
   call-deploy:
     needs: [build]
     uses: ./.github/workflows/deploy.yaml
+    
