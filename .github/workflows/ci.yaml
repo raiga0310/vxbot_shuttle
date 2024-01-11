@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build-and-clippy:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
@@ -24,3 +24,9 @@ jobs:
         run: cargo clippy
       - name: dev test
         run: cargo test
+
+  call-deploy:
+    needs: [build]
+    uses: ./.github/workflows/deploy.yaml
+    secrets: inherit
+    
