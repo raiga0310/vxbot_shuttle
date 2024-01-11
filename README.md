@@ -1,16 +1,31 @@
-# Serenity Hello World Bot with Shuttle
+# Discord Bot
 
-In this example we will deploy a Serenity bot with Shuttle that responds to the `!hello` command with `world!`. To run this bot we need a valid Discord Token. To get started log in to the [Discord developer portal](https://discord.com/developers/applications).
+This is a Discord bot built using Serenity and PostgreSQL. It has the following features:
+## Commands
 
-1. Click the New Application button, name your application and click Create.
-2. Navigate to the Bot tab in the lefthand menu, and add a new bot.
-3. On the bot page click the Reset Token button to reveal your token. Put this token in your `Secrets.toml`. It's very important that you don't reveal your token to anyone, as it can be abused. Create a `.gitignore` file to omit your `Secrets.toml` from version control.
-4. For the sake of this example, you also need to scroll down on the bot page to the Message Content Intent section and enable that option.
+- `get` - Get the user's current mode (fx or vx)
+- `set <mode>` - Set the user's mode to either fx or vx
+- `help` - Display help text
 
-To add the bot to a server we need to create an invite link.
+## Modes
 
-1. On your bot's application page, open the OAuth2 page via the lefthand panel.
-2. Go to the URL Generator via the lefthand panel, and select the `bot` scope as well as the `Send Messages` permission in the Bot Permissions section.
-3. Copy the URL, open it in your browser and select a Discord server you wish to invite the bot to.
+The bot supports two modes:
 
-For more information please refer to the [Discord docs](https://discord.com/developers/docs/getting-started) as well as the [Serenity repo](https://github.com/serenity-rs/serenity) for more examples.
+- `fx` - Links will unfurl to fxtwitter.com
+- `vx` - Links will unfurl to vxtwitter.com
+
+The default mode is `vx`.
+## Database
+
+The bot uses PostgreSQL to store user modes. It has a simple modes table with guild_id, user_id, and mode columns.
+Configuration
+
+The bot requires a DISCORD_TOKEN environment variable or secret containing a valid Discord bot token.
+## Running
+```
+cargo run
+```
+This will run the migrations before starting the bot.
+## Deployment
+
+The bot is set up to deploy easily on Shuttle. Just push to Shuttle and it will run the migrations and start the bot automatically.
