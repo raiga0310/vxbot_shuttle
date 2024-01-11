@@ -20,9 +20,7 @@ jobs:
       - run: cargo fmt -- --check
 
       - run: cargo udeps
-      - uses: actions-rs/clippy-check@v1
-        with:
-          name: dev clippy
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: clippy
+        run: cargo clippy
       - name: dev test
         run: cargo test
