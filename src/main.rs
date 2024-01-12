@@ -29,8 +29,6 @@ impl EventHandler for Bot {
             return;
         }
 
-        info!(msg.content);
-
         let guild_id = msg.guild_id.unwrap().to_string();
         let user_id = msg.author.id.to_string();
 
