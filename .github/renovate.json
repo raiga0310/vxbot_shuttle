@@ -11,9 +11,14 @@
     },
     "packageRules": [
       {
+        "matchPackageNames": "serenity",
+        "major": false
+      },
+      {
         "matchPackagePatterns": [".*"],
         "matchLanguages": "rust",
         "groupName": "Rust Dependencies"
       }
     ]
+    
   }
