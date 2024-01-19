@@ -29,3 +29,39 @@ This will run the migrations before starting the bot.
 ## Deployment
 
 The bot is set up to deploy easily on Shuttle. Just push to Shuttle and it will run the migrations and start the bot automatically.
+
+### Secrets
+
+Before you deploy, you must set discord token in `Secrets.toml`:
+
+```toml
+DISCORD_TOKEN="You can get discord_token from your dashboard on discord developer portal"
+```
+
+### Deploy!!
+
+You required install `cargo-shuttle`
+```sh
+$ cargo install cargo-shuttle
+```
+
+and deploy
+```sh
+$ cargo shuttle deploy
+```
+
+### Disable idling
+
+The shuttle project will be idled if the project has no request for the recent 30 minutes (According to [site](https://docs.shuttle.rs/getting-started/idle-projects)).
+So, you can avoid project idling to be disabled `timeout-minutes`.
+
+```sh
+# on your shuttle project already has deployed
+$ cargo shuttle project restart --timeout-minutes 0
+```
+
+if you want to confirm `timeout-minutes`, do this:
+
+```sh
+$ cargo shuttle project status
+```
