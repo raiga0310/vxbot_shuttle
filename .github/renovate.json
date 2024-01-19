@@ -12,7 +12,7 @@
     "packageRules": [
       {
         "matchPackageNames": "serenity",
-        "major": false
+        "enabled": false
       },
       {
         "matchPackagePatterns": [".*"],
