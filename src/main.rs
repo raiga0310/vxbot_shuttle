@@ -7,7 +7,7 @@ use command::match_help_command;
 use command::match_set_command;
 use command::match_url;
 use serenity::async_trait;
-use serenity::builer::CreateMessage;
+use serenity::builder::CreateMessage;
 use serenity::model::channel::Message;
 use serenity::model::gateway::Ready;
 use serenity::prelude::*;
@@ -124,5 +124,5 @@ async fn serenity(
         .await
         .expect("Err creating client");
 
-    Ok(client)
+    Ok(shuttle_serenity::SerenityService(client))
 }
