@@ -9,6 +9,7 @@ use command::match_url;
 use serenity::async_trait;
 use serenity::model::channel::Message;
 use serenity::model::gateway::Ready;
+use serenity::builer::CreateMessage;
 use serenity::prelude::*;
 use serenity::Result;
 use shuttle_secrets::SecretStore;
@@ -73,7 +74,7 @@ impl EventHandler for Bot {
 
             check_msg(
                 msg.channel_id
-                    .send_message(&_ctx.http, |message| {
+                    .send_message(&_ctx.http, |message: CreateMessage| {
                         message
                             .reference_message(&msg)
                             .allowed_mentions(|mentions| mentions.replied_user(true))
@@ -123,5 +124,5 @@ async fn serenity(
         .await
         .expect("Err creating client");
 
-    Ok(client.start().await)
+    Ok(client)
 }
