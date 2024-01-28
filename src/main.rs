@@ -74,7 +74,7 @@ impl EventHandler for Bot {
 
             check_msg(
                 msg.channel_id.send_message(
-                    &_ctx.http, 
+                    &_ctx.http,
                     CreateMessage::new()
                         .reference_message(&msg)
                         .allowed_mentions(CreateAllowedMentions::new().replied_user(true))
