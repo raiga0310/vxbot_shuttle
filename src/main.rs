@@ -123,5 +123,5 @@ async fn serenity(
         .await
         .expect("Err creating client");
 
-    Ok(client.start())
+    Ok(client.start().await)
 }
