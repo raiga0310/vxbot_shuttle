@@ -82,7 +82,7 @@ impl EventHandler for Bot {
                             CreateEmbed::new()
                                 .description(description)
                                 .timestamp(msg.timestamp),
-                            )
+                        )
                         .await,
                 ),
             );
