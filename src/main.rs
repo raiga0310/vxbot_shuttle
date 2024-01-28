@@ -73,13 +73,17 @@ impl EventHandler for Bot {
             ";
 
             check_msg(
-                msg.channel_id
-                    .send_message(&_ctx.http, 
-                        CreateMessage::new()
-                            .reference_message(&msg)
-                            .allowed_mentions(CreateAllowedMentions::new().replied_user(true))
-                            .add_embed(CreateEmbed::new().description(description).timestamp(msg.timestamp))
-                    .await
+                msg.channel_id.send_message(
+                    &_ctx.http, 
+                    CreateMessage::new()
+                        .reference_message(&msg)
+                        .allowed_mentions(CreateAllowedMentions::new().replied_user(true))
+                        .add_embed(
+                            CreateEmbed::new()
+                                .description(description)
+                                .timestamp(msg.timestamp)
+                            )
+                        .await
                 )
             );
         }
