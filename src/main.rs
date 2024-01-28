@@ -7,6 +7,8 @@ use command::match_help_command;
 use command::match_set_command;
 use command::match_url;
 use serenity::async_trait;
+use serenity::builder::CreateAllowedMentions;
+use serenity::builder::CreateEmbed;
 use serenity::builder::CreateMessage;
 use serenity::model::channel::Message;
 use serenity::model::gateway::Ready;
@@ -73,18 +75,19 @@ impl EventHandler for Bot {
             ";
 
             check_msg(
-                msg.channel_id.send_message(
-                    &_ctx.http,
-                    CreateMessage::new()
-                        .reference_message(&msg)
-                        .allowed_mentions(CreateAllowedMentions::new().replied_user(true))
-                        .add_embed(
-                            CreateEmbed::new()
-                                .description(description)
-                                .timestamp(msg.timestamp),
-                        )
-                        .await,
-                ),
+                msg.channel_id
+                    .send_message(
+                        &_ctx.http,
+                        CreateMessage::new()
+                            .reference_message(&msg)
+                            .allowed_mentions(CreateAllowedMentions::new().replied_user(true))
+                            .add_embed(
+                                CreateEmbed::new()
+                                    .description(description)
+                                    .timestamp(msg.timestamp),
+                            ),
+                    )
+                    .await,
             );
         }
     }
