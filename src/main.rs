@@ -81,10 +81,10 @@ impl EventHandler for Bot {
                         .add_embed(
                             CreateEmbed::new()
                                 .description(description)
-                                .timestamp(msg.timestamp)
+                                .timestamp(msg.timestamp),
                             )
-                        .await
-                )
+                        .await,
+                ),
             );
         }
     }
