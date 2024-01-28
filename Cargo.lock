@@ -2091,7 +2091,34 @@ dependencies = [
  "tokio",
  "tokio-tungstenite",
  "tracing",
- "typemap_rev",
+ "typemap_rev 0.1.5",
+ "url",
+]
+
+[[package]]
+name = "serenity"
+version = "0.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "385647faa24a889929028973650a4f158fb1b4272b2fcf94feb9fcc3c009e813"
+dependencies = [
+ "arrayvec",
+ "async-trait",
+ "base64 0.21.7",
+ "bitflags 2.4.2",
+ "bytes",
+ "flate2",
+ "futures",
+ "mime_guess",
+ "percent-encoding",
+ "reqwest",
+ "secrecy",
+ "serde",
+ "serde_json",
+ "time",
+ "tokio",
+ "tokio-tungstenite",
+ "tracing",
+ "typemap_rev 0.3.0",
  "url",
 ]
 
@@ -2238,7 +2265,7 @@ version = "0.37.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f744337f933bd7e2dd8e4a2477f7581c92cdb71a362a2d59fda3c1d7cfb8436f"
 dependencies = [
- "serenity",
+ "serenity 0.12.0",
  "shuttle-runtime",
 ]
 
@@ -3114,6 +3141,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "tungstenite"
+version = "0.20.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9e3dac10fd62eaf6617d3a904ae222845979aec67c615d1c842b4002c7666fb9"
+dependencies = [
+ "byteorder",
+ "bytes",
+ "data-encoding",
+ "http",
+ "httparse",
+ "log",
+ "rand",
+ "rustls 0.21.10",
+ "sha1",
+ "thiserror",
+ "url",
+ "utf-8",
+]
+
+[[package]]
+name = "typemap_rev"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "74b08b0c1257381af16a5c3605254d529d3e7e109f3c62befc5d168968192998"
+
+[[package]]
 name = "typemap_rev"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3237,7 +3290,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "regex",
- "serenity",
+ "serenity 0.11.7",
  "shuttle-runtime",
  "shuttle-secrets",
  "shuttle-serenity",

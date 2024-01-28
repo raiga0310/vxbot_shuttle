@@ -105,7 +105,7 @@ fn check_msg(result: Result<Message>) {
 
 #[shuttle_runtime::main]
 async fn serenity(
-    #[shuttle_shared_db::Postgres] pool: PgPool,
+    #[shuttle_shared_db::Postgres] pool: sqlx::PgPool,
     #[shuttle_secrets::Secrets] secret_store: SecretStore,
 ) -> shuttle_serenity::ShuttleSerenity {
     // Get the discord token set in `Secrets.toml`
@@ -129,5 +129,5 @@ async fn serenity(
         .await
         .expect("Err creating client");
 
-    Ok(client.into())
+    Ok(shuttle_serenity::SerenityService(client))
 }
